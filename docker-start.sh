@@ -14,5 +14,8 @@ a2dismod mpm_event mpm_worker || true
 # Ensure Prefork is enabled
 a2enmod mpm_prefork
 
+echo "--> Running Database Migrations..."
+php artisan migrate --force
+
 echo "--> Starting Apache..."
 exec apache2-foreground
