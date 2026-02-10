@@ -55,6 +55,9 @@ $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
 
+// Compatibility Patch: Force ignore deprecations (PHP 8.3 vs Laravel 5.8)
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+
 $response->send();
 
 $kernel->terminate($request, $response);
