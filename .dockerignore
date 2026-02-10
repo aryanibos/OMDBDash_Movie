@@ -1,0 +1,13 @@
+.git
+.env
+vendor
+node_modules
+public/storage
+storage/*.key
+.vercel
+vercel.json
+api/index.php
+Dockerfile
+RAILWAY_DEPLOY.md
+VERCEL_DEPLOY.md
+docker-start.sh
