@@ -1,8 +1,8 @@
 # Gunakan image PHP 7.4 dengan Apache (Versi paling stabil untuk Laravel 5.8)
 FROM php:7.4-apache
 
-# Install dependencies sistem yang dibutuhkan
-RUN apt-get update && apt-get install -y \
+# Install dependencies sistem yang dibutuhkan (Gunakan --no-install-recommends agar tidak menimpa Apache bawaan)
+RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     curl \
     libpng-dev \
@@ -17,14 +17,16 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Install ekstensi PHP yang dibutuhkan Laravel
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Enable Apache mod_rewrite (Penting untuk URL Laravel)
+# Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
-# Fix: "Nuclear Option" - Remove ALL MPMs first to prevent conflicts
-RUN rm -f /etc/apache2/mods-enabled/mpm_*
-
-# Ensure Prefork is the only one enabled
-RUN a2enmod mpm_prefork
+# Fix: Pastikan tidak ada MPM ganda. 
+# Hapus konfigurasi mpm_event dan mpm_worker jika ada (bawaan Debian terkadang terinstall)
+RUN rm -f /etc/apache2/mods-enabled/mpm_event.load \
+    /etc/apache2/mods-enabled/mpm_event.conf \
+    /etc/apache2/mods-enabled/mpm_worker.load \
+    /etc/apache2/mods-enabled/mpm_worker.conf
+# Jangan hapus mpm_prefork bawaan image, dan jangan paksa a2enmod lagi jika sudah aktif.
 
 # Install Composer terbaru
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
