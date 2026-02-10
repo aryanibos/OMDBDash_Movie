@@ -10,4 +10,3 @@ api/index.php
 Dockerfile
 RAILWAY_DEPLOY.md
 VERCEL_DEPLOY.md
-docker-start.sh
