@@ -20,6 +20,10 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 # Enable Apache mod_rewrite (Penting untuk URL Laravel)
 RUN a2enmod rewrite
 
+# Fix: Ensure only one MPM is loaded (Prefork for PHP)
+RUN a2dismod mpm_event mpm_worker || true
+RUN a2enmod mpm_prefork
+
 # Install Composer terbaru
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
