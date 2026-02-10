@@ -6,4 +6,8 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 
 // Forward Vercel requests to Laravel entry point
-require __DIR__ . '/../public/index.php';
+// require __DIR__ . '/../public/index.php';
+
+echo "DEBUG: Vercel PHP Runtime is working.<br>";
+echo "PHP Version: " . phpversion();
+exit;
