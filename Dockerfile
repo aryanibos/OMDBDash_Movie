@@ -51,5 +51,9 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.
 # Expose port 80
 EXPOSE 80
 
-# Jalankan Apache di foreground
-CMD ["apache2-foreground"]
+# Copy entrypoint script
+COPY docker-start.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-start.sh
+
+# Jalankan via script
+CMD ["docker-start.sh"]
