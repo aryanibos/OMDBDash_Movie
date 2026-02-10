@@ -1,0 +1,15 @@
+/vendor
+/storage/*.key
+/storage/*.key.pub
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/database/*.sqlite
+.env
+.env.example
+.git
+.idea
+.vscode
+php_errors.log
